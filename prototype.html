@@ -1155,6 +1155,8 @@ body.safe .sbar{top:calc(var(--hdr) + 44px + 14px)}
   var q=new URLSearchParams(location.search), body=document.body, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(q.get('safe')) body.classList.add('safe');
   // снимок всей страницы: экранные высоты фиксируются, чтобы окно можно было сделать высоким
+  // для статичных снимков: без плавных переходов, панели сразу на месте
+  if(q.get('notr')){ var st0=document.createElement('style'); st0.textContent='*,*:before,*:after{transition:none!important}'; document.head.appendChild(st0); }
   if(q.get('full')){ var st=document.createElement('style'); st.textContent='.hero{height:900px!important;min-height:0!important}.ic-img,.bq-img{min-height:900px!important}'; document.head.appendChild(st); }
   var VIEWS=['home','catalog','product','passport'];
   function viewOf(){ var h=(location.hash||'#home').slice(1); return VIEWS.indexOf(h)>-1?h:'home'; }

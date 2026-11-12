@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=1440">
+<title>Панель RR</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Noto+Serif+Display:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--choc:#33261F;--c2:#6A5A50;--line:#ECE7E2;--bg:#F7F5F2;--taupe:#9C8D7B;--bordo:#5E1A22;--cognac:#7B4E33}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter Tight',Arial,sans-serif;color:var(--choc);background:var(--bg);width:1440px;height:900px;overflow:hidden;display:grid;grid-template-columns:232px 1fr;font-size:14px}
+aside{background:#fff;border-right:1px solid var(--line);padding:26px 18px}
+.wm{font-family:'Noto Serif Display',serif;font-size:15px;letter-spacing:.28em;padding:0 10px 28px}
+.it{padding:11px 12px;border-radius:8px;color:var(--c2);display:flex;justify-content:space-between}
+.it.on{background:var(--bg);color:var(--choc);font-weight:500}
+.it b{font-weight:500;font-size:12px;background:var(--choc);color:#fff;border-radius:10px;padding:1px 7px}
+main{padding:28px 34px}
+.top{display:flex;justify-content:space-between;align-items:flex-end}
+h1{font-family:'Noto Serif Display',serif;font-weight:300;font-size:38px}
+.top .d{color:var(--c2);margin-top:4px}
+.btn{background:var(--choc);color:#fff;padding:12px 18px;border-radius:8px;font-weight:500}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.k{background:#fff;border-radius:12px;padding:18px 20px}
+.k .l{color:var(--c2);font-size:13px}
+.k .v{font-size:30px;font-weight:500;margin-top:8px;letter-spacing:-.01em}
+.k .t{font-size:12.5px;color:#4F7A52;margin-top:4px}
+.k .t.n{color:var(--c2)}
+.row{display:grid;grid-template-columns:1.65fr 1fr;gap:14px;margin-top:14px}
+.card{background:#fff;border-radius:12px;padding:20px 22px}
+.card h2{font-size:15px;font-weight:600;margin-bottom:12px;display:flex;justify-content:space-between}
+.card h2 span{font-weight:400;color:var(--c2);font-size:13px}
+table{width:100%;border-collapse:collapse}
+td{padding:11px 6px;border-top:1px solid var(--line);vertical-align:middle}
+td.p{display:flex;gap:12px;align-items:center}
+td.p img{width:38px;height:46px;object-fit:cover;border-radius:4px}
+td .s{font-size:12.5px;color:var(--c2)}
+.tag{font-size:12px;padding:4px 10px;border-radius:12px;white-space:nowrap}
+.paid{background:#E5EFE3;color:#2F5B33}.fit{background:#F3E3D3;color:var(--cognac)}.new{background:#EEE9E4}.ship{background:#E6E4EE;color:#3E3A60}
+.bars{display:flex;align-items:flex-end;gap:12px;height:170px;margin-top:8px;padding-bottom:22px;position:relative}
+.bar{flex:1;background:#E8DFD6;border-radius:6px 6px 0 0;position:relative}
+.bar.hi{background:var(--choc)}
+.bar span{position:absolute;bottom:-22px;left:0;right:0;text-align:center;font-size:12px;color:var(--c2)}
+.low{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+.low div{display:flex;justify-content:space-between;padding:7px 0;font-size:13.5px}
+.low .r{color:var(--bordo);font-weight:500}
+</style></head><body>
+<aside><div class="wm">RENATA RYAZANOVA</div>
+<div class="it on">Заказы <b>6</b></div><div class="it">Примерки <b>2</b></div><div class="it">Товары</div><div class="it">Остатки</div><div class="it">Клиентки</div><div class="it">Промокоды</div><div class="it">Сертификаты</div><div class="it">Отчёты</div><div class="it">Сотрудники</div></aside>
+<main>
+<div class="top"><div><h1>Добрый день</h1><div class="d">Среда, 12 ноября. Бутик открыт до 20:00</div></div><div class="btn">Добавить модель</div></div>
+<div class="kpi">
+<div class="k"><div class="l">Заказов сегодня</div><div class="v">6</div><div class="t">4 оплачены онлайн</div></div>
+<div class="k"><div class="l">Выручка за неделю</div><div class="v">412 600 ₽</div><div class="t">из них 38% с сайта</div></div>
+<div class="k"><div class="l">Примерки в бутике</div><div class="v">2</div><div class="t n">16:00 и 18:30</div></div>
+<div class="k"><div class="l">Ждут размер</div><div class="v">14</div><div class="t n">чаще всего 37 и 38</div></div>
+</div>
+<div class="row">
+<div class="card"><h2>Последние заказы <span>все заказы</span></h2>
+<table>
+<tr><td class="p"><img src="img/112_2.jpg" alt=""><div>№ 1049. Сапоги Lama, 38<div class="s">Карамель. СДЭК с примеркой, Казань</div></div></td><td>32 900 ₽</td><td><span class="tag paid">Оплачен</span></td></tr>
+<tr><td class="p"><img src="img/012_1.jpg" alt=""><div>№ 1048. Мюли Christina, 37<div class="s">Бордо. Резерв в бутике до 19:00</div></div></td><td>18 900 ₽</td><td><span class="tag fit">Примерка</span></td></tr>
+<tr><td class="p"><img src="img/041_2.jpg" alt=""><div>№ 1047. Слингбэки Duo, 37<div class="s">Курьер по Набережным Челнам</div></div></td><td>19 900 ₽</td><td><span class="tag new">Новый</span></td></tr>
+<tr><td class="p"><img src="img/038_1.jpg" alt=""><div>№ 1046. Лодочки с золотым мыском, 36<div class="s">Москва, трек СДЭК 10 234 567 891</div></div></td><td>21 900 ₽</td><td><span class="tag ship">В пути</span></td></tr>
+<tr><td class="p"><img src="img/knit.jpg" alt=""><div>№ 1045. Платье из трикотажа, M<div class="s">Самовывоз из бутика</div></div></td><td>14 900 ₽</td><td><span class="tag paid">Оплачен</span></td></tr>
+</table></div>
+<div class="card"><h2>Продажи по размерам <span>30 дней</span></h2>
+<div class="bars"><div class="bar" style="height:22%"><span>35</span></div><div class="bar" style="height:48%"><span>36</span></div><div class="bar hi" style="height:100%"><span>37</span></div><div class="bar" style="height:84%"><span>38</span></div><div class="bar" style="height:52%"><span>39</span></div><div class="bar" style="height:20%"><span>40</span></div></div>
+<div class="low"><div><span>Мюли Christina, 37</span><span class="r">осталась 1 пара</span></div><div><span>Сапоги Lama, 38</span><span class="r">осталось 2</span></div><div><span>Ботфорты табак, 37</span><span>заказать на фабрике</span></div></div>
+</div>
+</div>
+</main>
+</body></html>

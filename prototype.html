@@ -196,7 +196,7 @@ header .n-home:hover,body[data-view=home] header .n-home{opacity:1}
 .people .sec-h{padding-right:var(--pad)}
 .pp-strip{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding-right:var(--pad);cursor:grab}
 .pp-strip::-webkit-scrollbar{display:none}
-.pp-strip figure{flex:0 0 calc((100% - 60px)/5.4)}
+.pp-strip figure{flex:0 0 calc((100% - 60px)/5.4);margin:0;transform-origin:50% 60%;will-change:transform}
 .pp-strip img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(1) sepia(.15);transition:filter .8s var(--ease)}
 .pp-strip figure:hover img{filter:none}
 /* покупательницы через одну: цветная, чёрно-белая */
@@ -1234,8 +1234,12 @@ body.safe .sbar{top:calc(var(--hdr) + 44px + 14px)}
     pp.addEventListener('mouseenter',function(){ppHold=true}); pp.addEventListener('mouseleave',function(){ppHold=false});
     pp.addEventListener('touchstart',function(){ppHold=true},{passive:true}); pp.addEventListener('touchend',function(){ setTimeout(function(){ppHold=false},1500); },{passive:true});
     new IntersectionObserver(function(es){ ppSeen=es[0].isIntersecting; },{threshold:.1}).observe(pp);
+    // скорость не обрывается, а плавно гаснет при наведении и так же плавно набирается; кадр у центра чуть крупнее, края уходят в глубину
+    var ppV=0, ppMax=0.75;
     function ppTick(t){ var dt=ppLast?Math.min(64,t-ppLast):16; ppLast=t; if(Math.abs(pp.scrollLeft-ppPos)>3) ppPos=pp.scrollLeft;
-      if(ppSeen && !ppHold){ ppPos+=1.4*dt/16; var h=ppHalf(); if(ppPos>=h) ppPos-=h; pp.scrollLeft=ppPos; } requestAnimationFrame(ppTick); }
+      if(ppSeen){ var target=ppHold?0:ppMax; ppV+=(target-ppV)*0.04*dt/16; ppPos+=ppV*dt/16; var h=ppHalf(); if(ppPos>=h) ppPos-=h; pp.scrollLeft=ppPos;
+        var r=pp.getBoundingClientRect(), cx=r.left+r.width/2; ppF.forEach(function(f){ var b=f.getBoundingClientRect(); if(b.right<r.left-50||b.left>r.right+50) return; var d=Math.min(1,Math.abs(b.left+b.width/2-cx)/(r.width*.6)); f.style.transform='scale('+(1-d*0.07).toFixed(4)+')'; f.style.opacity=(1-d*0.35).toFixed(3); }); }
+      requestAnimationFrame(ppTick); }
     if(!reduce) requestAnimationFrame(ppTick); }
   var stmt=document.getElementById('stmt'); stmt.innerHTML=stmt.textContent.split(' ').map(function(w){return '<span class="w">'+w+'</span>'}).join(' ');
   var words=stmt.querySelectorAll('.w');

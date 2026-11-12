@@ -1168,6 +1168,7 @@ body.safe .sbar{top:calc(var(--hdr) + 44px + 14px)}
     return '<a class="card'+(vid?' has-v':'')+'" href="#product" data-cat="'+p[5]+'"><div class="im">'+media+(p[6]?'<span class="flag">'+p[6]+'</span>':'')+'<button class="fav" data-n="'+p[2]+'" aria-label="В избранное"><svg class="ico i20"><use href="#i-heart"/></svg></button><div class="quick"><span>Быстро в корзину</span><span class="sz"><i>36</i><i>37</i><i>38</i><i>39</i></span></div></div><div class="meta"><div><div class="n">'+p[2]+'</div><div class="c">'+p[3]+'</div>'+sw+'</div><div class="p">'+p[4]+'</div></div></a>'; }
   document.getElementById('rail').innerHTML=P.slice(0,8).map(card).join('');
   document.getElementById('catgrid').innerHTML=P.map(card).join('');
+  (function(n){ document.getElementById('catcount').textContent=n+(n%10===1&&n%100!==11?' модель':(n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?' модели':' моделей')); })(P.length);
   // пара в движении: видео в карточке играет при наведении, на телефоне когда карточка на экране
   var hoverable=matchMedia('(hover:hover)').matches;
   document.querySelectorAll('.card.has-v').forEach(function(c){ var v=c.querySelector('video'); function on(){ v.play().then(function(){ v.classList.add('playing'); }).catch(function(){}); } function off(){ v.pause(); v.classList.remove('playing'); }

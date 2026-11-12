@@ -59,7 +59,7 @@ body.mega-on .mega{opacity:1;visibility:visible;transform:none}
 #intro{position:fixed;inset:0;z-index:200;pointer-events:none}
 #intro .lid{position:absolute;left:0;right:0;height:50.5%;background:var(--umber);transition:transform 1.25s var(--ease-io)}
 #intro .lid.t{top:0}#intro .lid.b{bottom:0}
-#intro .ilogo{position:absolute;left:50%;top:50%;width:168px;aspect-ratio:664/569;transform:translate(-50%,-50%);background:linear-gradient(115deg,#BFB1A2 0%,#EFE7DD 30%,#FFFFFF 42%,#D9CCBD 55%,#F6F0E8 72%,#C9BBAA 100%);background-size:260% 100%;background-position:100% 0;-webkit-mask:url(img/rr_logo.png) center/contain no-repeat;mask:url(img/rr_logo.png) center/contain no-repeat;clip-path:polygon(0 0,0 0,-30% 100%,-30% 100%);transition:clip-path 1.3s var(--ease-io),opacity .6s ease,transform 1.2s var(--ease-io)}
+#intro .ilogo{position:absolute;left:50%;top:50%;width:150px;aspect-ratio:545/569;transform:translate(-50%,-50%);background:linear-gradient(115deg,#BFB1A2 0%,#EFE7DD 30%,#FFFFFF 42%,#D9CCBD 55%,#F6F0E8 72%,#C9BBAA 100%);background-size:260% 100%;background-position:100% 0;-webkit-mask:url(img/rr_logo.png) left center/auto 100% no-repeat;mask:url(img/rr_logo.png) left center/auto 100% no-repeat;clip-path:polygon(0 0,0 0,-30% 100%,-30% 100%);transition:clip-path 1.3s var(--ease-io),opacity .6s ease,transform 1.2s var(--ease-io)}
 #intro.s1 .ilogo{clip-path:polygon(0 0,130% 0,100% 100%,-30% 100%);animation:ipearl 2.2s ease-in-out .5s both}
 @keyframes ipearl{from{background-position:100% 0}to{background-position:0 0}}
 #intro.s2 .ilogo{opacity:0;transform:translate(-50%,-50%) scale(.94)}
@@ -747,19 +747,14 @@ header.solid .mono-logo,body:not([data-view=home]) .mono-logo{font-size:40px}
 .lead2 .w.on{opacity:1}
 
 /* знак RR из инстаграма бренда: цвет берёт от текста шапки */
-.mono-logo .lg{display:block;width:58px;height:50px;background:currentColor;-webkit-mask:url(img/rr_logo.png) center/contain no-repeat;mask:url(img/rr_logo.png) center/contain no-repeat;clip-path:polygon(0 0,130% 0,100% 100%,-30% 100%);transition:clip-path 1.2s var(--ease-io) .2s,width .5s var(--ease),height .5s var(--ease)}
+.mono-logo .lg{display:block;width:48px;height:50px;background:currentColor;-webkit-mask:url(img/rr_logo.png) left center/auto 100% no-repeat;mask:url(img/rr_logo.png) left center/auto 100% no-repeat;clip-path:polygon(0 0,130% 0,100% 100%,-30% 100%);transition:clip-path 1.2s var(--ease-io) .2s,width .5s var(--ease),height .5s var(--ease)}
 body:not(.loaded) .mono-logo .lg{clip-path:polygon(0 0,0 0,-30% 100%,-30% 100%)}
-header.solid .mono-logo .lg,body:not([data-view=home]) .mono-logo .lg{width:50px;height:43px}
+header.solid .mono-logo .lg,body:not([data-view=home]) .mono-logo .lg{width:41px;height:43px}
 .mono-logo .full{top:calc(100% - 4px)}
-#curtain .lg{display:block;width:120px;aspect-ratio:664/569;background:var(--ink);-webkit-mask:url(img/rr_logo.png) center/contain no-repeat;mask:url(img/rr_logo.png) center/contain no-repeat;opacity:0;transition:opacity .3s}
+#curtain .lg{display:block;width:120px;aspect-ratio:545/569;background:var(--ink);-webkit-mask:url(img/rr_logo.png) left center/auto 100% no-repeat;mask:url(img/rr_logo.png) left center/auto 100% no-repeat;opacity:0;transition:opacity .3s}
 #curtain.in .lg{opacity:1;transition-delay:.25s}
 
-/* знак раскрывается в надпись и обратно */
-.mono-logo .lg{transition:clip-path 1.2s var(--ease-io) .2s,opacity .6s ease,transform .9s var(--ease),width .5s var(--ease),height .5s var(--ease)}
-.mono-logo .wm2{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--logo);font-size:20px;letter-spacing:.36em;padding-left:.36em;line-height:1;white-space:nowrap;clip-path:inset(0 50% 0 50%);opacity:0;transition:clip-path 1.1s var(--ease-io),opacity .6s ease;pointer-events:none}
-.mono-logo.peek .wm2{clip-path:inset(0 0 0 0);opacity:1}
-.mono-logo.peek .lg{opacity:0;transform:scale(.6)}
-.mono-logo.peek .full{opacity:0!important}
+.mono-logo .full{display:none}
 
 /* планшет */
 @media (min-width:761px) and (max-width:1100px){
@@ -808,7 +803,6 @@ header.solid .mono-logo .lg,body:not([data-view=home]) .mono-logo .lg{width:50px
   .lk-note{margin-top:24px}
   .hero h1{font-size:50px}
   .mega{display:none}
-  .mono-logo .wm2{font-size:12px;letter-spacing:.18em;padding-left:.18em}
   .mag-inset{display:none}
   .mag-p{column-count:1}
   .mag-spec{grid-template-columns:repeat(3,1fr)}
@@ -821,7 +815,7 @@ header.solid .mono-logo .lg,body:not([data-view=home]) .mono-logo .lg{width:50px
   .serv-row > div{border-left:0;border-top:1px solid rgba(28,22,18,.12);padding:24px 0 0}
   .serv-row > div:first-child{border-top:0;padding-top:0}
   .mono-logo{font-size:30px;padding:0 8px}
-  .mono-logo .lg,header.solid .mono-logo .lg,body:not([data-view=home]) .mono-logo .lg{width:44px;height:38px}
+  .mono-logo .lg,header.solid .mono-logo .lg,body:not([data-view=home]) .mono-logo .lg{width:37px;height:38px}
   .looks4{padding:70px 0 80px var(--pad)}
   .lk4-h .act{display:none}
   .lk4{flex:0 0 72%}
@@ -911,7 +905,7 @@ body.safe .sbar{top:calc(var(--hdr) + 44px + 14px)}
 
 <header id="hdr">
   <nav><a href="#catalog" class="m-only">Меню</a><a href="#home" class="d-only ib n-home" data-tip="Главная" aria-label="Главная"><svg class="ico i20"><use href="#i-home"/></svg></a><a href="#catalog" class="d-only">Новинки</a><a href="#catalog" class="d-only" id="m-shoes">Обувь</a><a href="#catalog" class="d-only">Трикотаж</a><a href="#home" class="d-only" data-open="fit">Бутик</a></nav>
-  <a href="#home" class="mono-logo" aria-label="RENATA RYAZANOVA, на главную"><span class="lg"></span><span class="wm2" aria-hidden="true">RENATA RYAZANOVA</span><span class="full">RENATA RYAZANOVA</span></a>
+  <a href="#home" class="mono-logo" aria-label="RENATA RYAZANOVA, на главную"><span class="lg"></span><span class="full">RENATA RYAZANOVA</span></a>
   <nav class="r"><a href="#catalog" class="ib" data-tip="Поиск" aria-label="Поиск"><svg class="ico i20"><use href="#i-search"/></svg></a><a href="#catalog" class="ib d-only" data-tip="Избранное" aria-label="Избранное"><svg class="ico i20"><use href="#i-heart"/></svg><span class="bagcount" id="fc"></span></a><a href="#home" class="ib d-only" data-open="size" data-tip="Мой размер" aria-label="Мой размер"><svg class="ico i20"><use href="#i-size"/></svg></a><button class="ib" data-open="cart" data-tip="Корзина" aria-label="Корзина"><svg class="ico i20"><use href="#i-bag"/></svg><span class="bagcount" id="bc"></span></button></nav>
 </header>
 
@@ -1190,10 +1184,9 @@ body.safe .sbar{top:calc(var(--hdr) + 44px + 14px)}
 
   // интро
   var intro=document.getElementById('intro');
-  // после загрузки знак RR ненадолго раскрывается в имя бренда и сворачивается обратно
-  function done(){ body.classList.add('loaded'); var ml=document.querySelector('.mono-logo'); if(ml && !reduce && !q.get('still')){ setTimeout(function(){ ml.classList.add('peek'); setTimeout(function(){ ml.classList.remove('peek'); },2600); }, intro.classList.contains('gone')?900:1500); } }
+  function done(){ body.classList.add('loaded'); }
   if(q.get('intro')==='0'||reduce||body.dataset.view!=='home'){ intro.classList.add('gone'); done(); }
-  else{ setTimeout(function(){intro.classList.add('s1')},150); setTimeout(function(){intro.classList.add('s2'); done();},2300); setTimeout(function(){intro.classList.add('gone')},3700); }
+  else{ setTimeout(function(){intro.classList.add('s1')},150); setTimeout(function(){intro.classList.add('s2'); done();},2400); setTimeout(function(){intro.classList.add('gone')},3800); }
 
   // строка объявлений
   var bs=document.querySelectorAll('.bar span'), bi=0;

@@ -194,13 +194,15 @@ header .n-home:hover,body[data-view=home] header .n-home{opacity:1}
 /* покупательницы */
 .people{padding:120px 0 120px var(--pad)}
 .people .sec-h{padding-right:var(--pad)}
-.pp-strip{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding-right:var(--pad);cursor:grab}
-.pp-strip::-webkit-scrollbar{display:none}
-.pp-strip figure{flex:0 0 calc((100% - 60px)/5.4);margin:0;transform-origin:50% 60%;will-change:transform}
-.pp-strip img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(1) sepia(.15);transition:filter .8s var(--ease)}
-.pp-strip figure:hover img{filter:none}
-/* покупательницы через одну: цветная, чёрно-белая */
-.pp-strip figure:nth-child(odd) img{filter:none}
+.pp-wall{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding-right:var(--pad)}
+.pp-wall figure{position:relative;margin:0;aspect-ratio:3/4;overflow:hidden;background:#e9e2d8}
+.pp-wall img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* новый кадр опускается мягкой шторкой с размытым краем и одновременно проявляется */
+.pp-wall img.in{-webkit-mask-image:linear-gradient(#000 40%,transparent 60%);mask-image:linear-gradient(#000 40%,transparent 60%);-webkit-mask-size:100% 250%;mask-size:100% 250%;-webkit-mask-position:0 0;mask-position:0 0;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  transition:-webkit-mask-position 2.6s cubic-bezier(.45,0,.55,1),mask-position 2.6s cubic-bezier(.45,0,.55,1),opacity 1.8s cubic-bezier(.45,0,.55,1)}
+.pp-wall img.in.nx{opacity:0;-webkit-mask-position:0 100%;mask-position:0 100%}
+/* живая стена через одну: цветная, чёрно-белая; кадр меняется только сменой прозрачности */
+.pp-wall figure:nth-child(even) img{filter:grayscale(1) sepia(.15)}
 
 /* подвал */
 footer{background:var(--bg2);color:var(--ink);padding:90px var(--pad) 30px;overflow:hidden}
@@ -763,7 +765,6 @@ header.solid .mono-logo .lg,body:not([data-view=home]) .mono-logo .lg{width:41px
   .rail .card{flex:0 0 calc((100% - 36px)/3)}
   .cat-grid{grid-template-columns:repeat(3,1fr)}
   .hero .copy{left:52%}
-  .pp-strip figure{flex:0 0 30%}
 }
 /* телефон */
 @media (max-width:760px){
@@ -836,7 +837,9 @@ header.solid .mono-logo .lg,body:not([data-view=home]) .mono-logo .lg{width:41px
   .bq-img{min-height:0;aspect-ratio:4/5}
   .bq-tx{padding:40px var(--pad) 50px}
   .people{padding:70px 0 70px var(--pad)}
-  .pp-strip figure{flex:0 0 62%}
+  .pp-wall{grid-template-columns:1fr 1fr;gap:8px}
+  .people .sec-h{flex-wrap:wrap;row-gap:14px;align-items:baseline}
+  .pp-wall figure:nth-child(5){display:none}
   .f-news{grid-template-columns:1fr;gap:28px}
   .f-cols{grid-template-columns:1fr 1fr}
   .catalog{padding:calc(var(--bar) + var(--hdr) + 26px) var(--pad) 70px}
@@ -859,7 +862,7 @@ header.solid .mono-logo .lg,body:not([data-view=home]) .mono-logo .lg{width:41px
   .mbar .btn{flex:1;height:50px}
   .drawer{width:100%;top:auto;height:90vh;transform:translateY(102%)}
 }
-@media (min-width:480px) and (max-width:760px){ .rail .card{flex:0 0 44%} .pp-strip figure{flex:0 0 38%} }
+@media (min-width:480px) and (max-width:760px){ .rail .card{flex:0 0 44%} }
 body.safe{--bar:0px}
 body.safe .bar{display:none}
 body.safe header{padding-top:44px;height:calc(var(--hdr) + 44px)}
@@ -1019,7 +1022,7 @@ body.safe .sbar{top:calc(var(--hdr) + 44px + 14px)}
 
   <section class="people">
     <div class="sec-h"><h2>Вы вдохновляете нас</h2><a href="#home" class="ul">Все отзывы с фото</a></div>
-    <div class="pp-strip"><figure><img src="img/000_1.jpg" alt=""></figure><figure><img src="img/000_2.jpg" alt=""></figure><figure><img src="img/000_3.jpg" alt=""></figure><figure><img src="img/000_4.jpg" alt=""></figure><figure><img src="img/000_5.jpg" alt=""></figure><figure><img src="img/000_6.jpg" alt=""></figure></div>
+    <div class="pp-wall" id="ppw"><figure><img src="img/000_1.jpg" alt=""></figure><figure><img src="img/000_2.jpg" alt=""></figure><figure><img src="img/000_3.jpg" alt=""></figure><figure><img src="img/000_4.jpg" alt=""></figure><figure><img src="img/000_5.jpg" alt=""></figure></div>
   </section>
 
   <footer>
@@ -1226,21 +1229,22 @@ body.safe .sbar{top:calc(var(--hdr) + 44px + 14px)}
   document.querySelectorAll('.pin').forEach(function(p){ p.addEventListener('click',function(e){ if(e.target.closest('a')) return; e.preventDefault(); var o=p.classList.contains('open'); document.querySelectorAll('.pin.open').forEach(function(x){x.classList.remove('open')}); if(!o) p.classList.add('open'); }); });
   // полоса после первого экрана: линии прорисовываются от монограммы, буквы сцепляются
   new IntersectionObserver(function(es,o){ if(es[0].isIntersecting){ document.getElementById('cred').classList.add('in'); o.disconnect(); } },{threshold:.5}).observe(document.getElementById('cred'));
-  // вы вдохновляете нас: лента фото едет непрерывно и плавно; копия кадров нужна для бесконечной петли
-  var pp=document.querySelector('.pp-strip');
-  if(pp){ pp.insertAdjacentHTML('beforeend', pp.innerHTML.replace(/<figure>/g,'<figure aria-hidden="true">'));
-    var ppF=pp.querySelectorAll('figure'), ppPos=0, ppHold=false, ppSeen=false, ppLast=0;
-    function ppHalf(){ return ppF[ppF.length/2].offsetLeft-ppF[0].offsetLeft; }
-    pp.addEventListener('mouseenter',function(){ppHold=true}); pp.addEventListener('mouseleave',function(){ppHold=false});
-    pp.addEventListener('touchstart',function(){ppHold=true},{passive:true}); pp.addEventListener('touchend',function(){ setTimeout(function(){ppHold=false},1500); },{passive:true});
-    new IntersectionObserver(function(es){ ppSeen=es[0].isIntersecting; },{threshold:.1}).observe(pp);
-    // скорость не обрывается, а плавно гаснет при наведении и так же плавно набирается; кадр у центра чуть крупнее, края уходят в глубину
-    var ppV=0, ppMax=0.75;
-    function ppTick(t){ var dt=ppLast?Math.min(64,t-ppLast):16; ppLast=t; if(Math.abs(pp.scrollLeft-ppPos)>3) ppPos=pp.scrollLeft;
-      if(ppSeen){ var target=ppHold?0:ppMax; ppV+=(target-ppV)*0.04*dt/16; ppPos+=ppV*dt/16; var h=ppHalf(); if(ppPos>=h) ppPos-=h; pp.scrollLeft=ppPos;
-        var r=pp.getBoundingClientRect(), cx=r.left+r.width/2; ppF.forEach(function(f){ var b=f.getBoundingClientRect(); if(b.right<r.left-50||b.left>r.right+50) return; var d=Math.min(1,Math.abs(b.left+b.width/2-cx)/(r.width*.6)); f.style.transform='scale('+(1-d*0.07).toFixed(4)+')'; f.style.opacity=(1-d*0.35).toFixed(3); }); }
-      requestAnimationFrame(ppTick); }
-    if(!reduce) requestAnimationFrame(ppTick); }
+  // вы вдохновляете нас: стена стоит, раз в несколько секунд один кадр мягко сменяется запасным
+  var ppw=document.getElementById('ppw');
+  if(ppw && !reduce){ var ppAll=['img/000_1.jpg','img/000_2.jpg','img/000_3.jpg','img/000_4.jpg','img/000_5.jpg','img/000_6.jpg'], ppSeen=false, ppLastCell=-1, ppBusy=false;
+    ppAll.forEach(function(u){ var im=new Image(); im.src=u; });
+    new IntersectionObserver(function(es){ ppSeen=es[0].isIntersecting; },{threshold:.2}).observe(ppw);
+    setInterval(function(){ if(!ppSeen||ppBusy||document.hidden) return;
+      // только видимые ячейки: на телефоне пятая спрятана, её кадр уходит в запас
+      var cells=[].slice.call(ppw.children).filter(function(f){ return f.offsetParent!==null; });
+      var shown=cells.map(function(f){ return f.querySelector('img:last-child').getAttribute('src'); });
+      var spare=ppAll.filter(function(u){ return shown.indexOf(u)<0; }); if(!spare.length) return;
+      var i; do{ i=Math.floor(Math.random()*cells.length); }while(cells.length>1 && i===ppLastCell); ppLastCell=i;
+      var f=cells[i], cur=f.querySelector('img:last-child'), nx=document.createElement('img');
+      nx.alt=''; nx.className='in nx'; nx.src=spare[Math.floor(Math.random()*spare.length)]; ppBusy=true;
+      nx.decode().catch(function(){}).then(function(){ f.appendChild(nx); void nx.offsetWidth; nx.classList.remove('nx');
+        setTimeout(function(){ if(cur.parentNode) cur.remove(); nx.className=''; ppBusy=false; },2800); });
+    },4200); }
   var stmt=document.getElementById('stmt'); stmt.innerHTML=stmt.textContent.split(' ').map(function(w){return '<span class="w">'+w+'</span>'}).join(' ');
   var words=stmt.querySelectorAll('.w');
   new IntersectionObserver(function(es){ if(es[0].isIntersecting){ words.forEach(function(w,i){ setTimeout(function(){w.classList.add('on')},130*i); }); } },{threshold:.4}).observe(stmt);
@@ -1268,7 +1272,7 @@ body.safe .sbar{top:calc(var(--hdr) + 44px + 14px)}
   // карусели: стрелки и перетаскивание мышью
   var rail=document.getElementById('rail');
   document.querySelectorAll('[data-rail]').forEach(function(b){ b.addEventListener('click',function(){ rail.scrollBy({left:(+b.dataset.rail)*rail.clientWidth*.75,behavior:'smooth'}); }); });
-  [rail,document.querySelector('.pp-strip')].forEach(function(el){ var down=false,sx=0,sl=0,moved=false; el.addEventListener('pointerdown',function(e){ if(e.pointerType!=='mouse') return; down=true; moved=false; sx=e.clientX; sl=el.scrollLeft; el.style.scrollSnapType='none'; }); addEventListener('pointerup',function(){ if(down){ down=false; el.style.scrollSnapType=''; } }); el.addEventListener('pointermove',function(e){ if(!down) return; var d=e.clientX-sx; if(Math.abs(d)>4) moved=true; el.scrollLeft=sl-d; }); el.addEventListener('click',function(e){ if(moved){ e.preventDefault(); e.stopPropagation(); } },true); });
+  [rail].forEach(function(el){ var down=false,sx=0,sl=0,moved=false; el.addEventListener('pointerdown',function(e){ if(e.pointerType!=='mouse') return; down=true; moved=false; sx=e.clientX; sl=el.scrollLeft; el.style.scrollSnapType='none'; }); addEventListener('pointerup',function(){ if(down){ down=false; el.style.scrollSnapType=''; } }); el.addEventListener('pointermove',function(e){ if(!down) return; var d=e.clientX-sx; if(Math.abs(d)>4) moved=true; el.scrollLeft=sl-d; }); el.addEventListener('click',function(e){ if(moved){ e.preventDefault(); e.stopPropagation(); } },true); });
 
   // меню категорий
   var mega=document.getElementById('mega'), ms=document.getElementById('m-shoes'), pvs=mega.querySelectorAll('.pv img'), mt;

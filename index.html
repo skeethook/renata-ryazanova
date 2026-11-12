@@ -210,6 +210,7 @@ section{position:relative}
 
 /* ===== 9. только у RR ===== */
 .bento{display:grid;grid-template-columns:1.1fr 1fr 1fr;grid-auto-rows:280px;gap:16px;margin-top:60px}
+.bento.b2{grid-template-columns:1fr 1fr;grid-auto-rows:220px;margin-top:16px}
 .tile{border-radius:22px;padding:30px;position:relative;overflow:hidden;background:var(--mist)}
 .tile h3{font-size:24px}
 .tile p{font-size:15.5px;line-height:1.55;color:var(--ink-2);margin-top:10px;max-width:320px;position:relative;z-index:2}
@@ -446,6 +447,7 @@ section{position:relative}
 .draft{margin:18px auto 0;max-width:560px;font-size:13px;line-height:1.5;color:var(--ink-2);opacity:.85}
 /* ===== телефон и планшет ===== */
 @media (max-width:900px){
+  .bub{position:relative;right:auto;bottom:auto;display:inline-block;margin-top:18px;max-width:100%!important}
   .wrap{padding:0 22px}
   .sec{padding:90px 0}
   .hero .top{padding:0 22px}
@@ -471,7 +473,7 @@ section{position:relative}
   .trio .it:nth-child(2){margin-top:0}
   .trio .ip{--w:64vw}
   .motion{grid-template-columns:1fr}
-  .bento{grid-template-columns:1fr;grid-auto-rows:auto}
+  .bento,.bento.b2{grid-template-columns:1fr;grid-auto-rows:auto}
   .tile{min-height:260px}
   .tile.pass{grid-row:auto;min-height:620px}
   .path{grid-template-columns:1fr 1fr}
@@ -658,7 +660,7 @@ section{position:relative}
       <div class="tile gift a d1"><span class="tag" style="background:rgba(255,255,255,.12);color:#F5F1EC">Флагман или опция</span><h3 class="h3">Электронный сертификат</h3><p>С открыткой и доставкой к 8 Марта.</p><div class="card">RR</div></div>
       <div class="tile img a d2"><img src="img/008_4.jpg" style="object-position:50% 40%" alt=""><span class="tag">Флагман</span><h3 class="h3">Предзаказ коллекции</h3><p>Спрос по размерам виден до заказа партии на фабрике.</p></div>
     </div>
-    <div class="bento" style="grid-template-columns:1fr 1fr;grid-auto-rows:220px;margin-top:16px">
+    <div class="bento b2">
       <div class="tile tg a"><span class="tag">Опция</span><h3 class="h3">Магазин внутри Telegram</h3><p>Каталог и корзина прямо в Вашем канале.</p><img class="tglogo" src="logos/telegram.svg" alt="Telegram"></div>
       <div class="tile botl a d1" style="background:#F1ECE6"><span class="tag">Опция</span><h3 class="h3">Бот бутика в Telegram</h3><p>Уведомления о заказах и примерках в Telegram.</p><div class="bub"><b>Заказ № 1049 оплачен</b>Сапоги Lama, 38. СДЭК с примеркой, Казань</div></div>
     </div>

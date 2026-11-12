@@ -1226,6 +1226,17 @@ body.safe .sbar{top:calc(var(--hdr) + 44px + 14px)}
   document.querySelectorAll('.pin').forEach(function(p){ p.addEventListener('click',function(e){ if(e.target.closest('a')) return; e.preventDefault(); var o=p.classList.contains('open'); document.querySelectorAll('.pin.open').forEach(function(x){x.classList.remove('open')}); if(!o) p.classList.add('open'); }); });
   // полоса после первого экрана: линии прорисовываются от монограммы, буквы сцепляются
   new IntersectionObserver(function(es,o){ if(es[0].isIntersecting){ document.getElementById('cred').classList.add('in'); o.disconnect(); } },{threshold:.5}).observe(document.getElementById('cred'));
+  // вы вдохновляете нас: лента фото едет непрерывно и плавно; копия кадров нужна для бесконечной петли
+  var pp=document.querySelector('.pp-strip');
+  if(pp){ pp.insertAdjacentHTML('beforeend', pp.innerHTML.replace(/<figure>/g,'<figure aria-hidden="true">'));
+    var ppF=pp.querySelectorAll('figure'), ppPos=0, ppHold=false, ppSeen=false, ppLast=0;
+    function ppHalf(){ return ppF[ppF.length/2].offsetLeft-ppF[0].offsetLeft; }
+    pp.addEventListener('mouseenter',function(){ppHold=true}); pp.addEventListener('mouseleave',function(){ppHold=false});
+    pp.addEventListener('touchstart',function(){ppHold=true},{passive:true}); pp.addEventListener('touchend',function(){ setTimeout(function(){ppHold=false},1500); },{passive:true});
+    new IntersectionObserver(function(es){ ppSeen=es[0].isIntersecting; },{threshold:.1}).observe(pp);
+    function ppTick(t){ var dt=ppLast?Math.min(64,t-ppLast):16; ppLast=t; if(Math.abs(pp.scrollLeft-ppPos)>3) ppPos=pp.scrollLeft;
+      if(ppSeen && !ppHold){ ppPos+=1.4*dt/16; var h=ppHalf(); if(ppPos>=h) ppPos-=h; pp.scrollLeft=ppPos; } requestAnimationFrame(ppTick); }
+    if(!reduce) requestAnimationFrame(ppTick); }
   var stmt=document.getElementById('stmt'); stmt.innerHTML=stmt.textContent.split(' ').map(function(w){return '<span class="w">'+w+'</span>'}).join(' ');
   var words=stmt.querySelectorAll('.w');
   new IntersectionObserver(function(es){ if(es[0].isIntersecting){ words.forEach(function(w,i){ setTimeout(function(){w.classList.add('on')},130*i); }); } },{threshold:.4}).observe(stmt);
